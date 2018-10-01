@@ -3,7 +3,7 @@ import './Person.css';
 
 const person = (props) => {
     return <div className="Person">
-        <p>{ props.name } - { props.age }</p>
+        <p onClick={ props.click }>{ props.name } - { props.age }</p>
         <p>{ props.children }</p>
         <input type="text"
             onChange = { props.changed }

@@ -5,9 +5,9 @@ import Person from './Person/Person';
 class App extends Component {
   state = {
     persons: [
-      { name: 'Angel', age:26 },
-      { name: 'Lio', age:33 },
-      { name: 'Miguel', age:26 },
+      { name: 'Angel', age:26, index: 1 },
+      { name: 'Lio', age:33, index: 2 },
+      { name: 'Miguel', age:26, index: 3 },
     ],
     otherState: 'some other value',
     showPersons: false
@@ -29,14 +29,21 @@ class App extends Component {
     this.setState({ showPersons: !doesShow });
   }
 
-  nameChangeHandler = (event) => {
-    this.setState({
-      persons: [
-        { name: 'Angel', age:28 },
-        { name: 'Leo', age:35 },
-        { name: event.target.value, age:36 },
-      ]
-    })
+  nameChangeHandler = (event, index) => {
+    const personIndex = this.state.persons.findIndex(p => {
+      return p.id === index;
+    });
+    const person = { ...this.state.persons[personIndex] };
+    person.name = event.target.value;
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+    this.setState({persons});
+  }
+
+  deletePersonHandler = (index) => {
+    const persons = [...this.state.persons];
+    persons.splice(index, 1);
+    this.setState({persons});
   }
 
   render() {
@@ -55,7 +62,16 @@ class App extends Component {
     if (this.state.showPersons) {
       persons = (
         <div>
-          <Person 
+          {this.state.persons.map((person, index) => {
+            return <Person
+            click = {() => this.deletePersonHandler(index)}
+            name = { person.name }
+            age = { person.age }
+            key = { person.id }
+            changed = {(event) => this.nameChangeHandler(event, person.id)}>
+          </Person>
+          })}
+          {/* <Person 
               name = { this.state.persons[0].name }
               age = { this.state.persons[0].age }>
             </Person>
@@ -68,7 +84,7 @@ class App extends Component {
               age = { this.state.persons[2].age } 
               click = { this.togglePersonsHandler.bind(this, 'Max') }
               changed = {this.nameChangeHandler}>
-            </Person>
+            </Person> */}
         </div>
       );
     }
