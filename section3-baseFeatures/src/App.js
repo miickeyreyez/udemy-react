@@ -49,14 +49,14 @@ class App extends Component {
       <h1>I'm a React App</h1>
       <button 
         style= { style }
-        onClick={() => this.switchNameHandler('Maximilian')}>Switch Name</button>
+        onClick= { () => this.switchNameHandler('Maximilian') }>Switch Name</button>
         <Person 
           name = { this.state.persons[0].name }
           age = { this.state.persons[0].age }>
         </Person>
         <Person 
-          name = {this.state.persons[1].name}
-          age={this.state.persons[1].age}>
+          name = { this.state.persons[1].name }
+          age = { this.state.persons[1].age }>
         </Person>
         <Person 
           name = { this.state.persons[2].name }
