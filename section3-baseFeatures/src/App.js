@@ -30,9 +30,7 @@ class App extends Component {
   }
 
   nameChangeHandler = (event, index) => {
-    const personIndex = this.state.persons.findIndex(p => {
-      return p.id === index;
-    });
+    const personIndex = this.state.persons.findIndex(p => p.id === index);
     const person = { ...this.state.persons[personIndex] };
     person.name = event.target.value;
     const persons = [...this.state.persons];
@@ -49,8 +47,10 @@ class App extends Component {
   render() {
     // return React.createElement('div', { className: 'App' }, React.createElement('h1', null, 'This is a random message'));
 
+    // This is an inline style
     const style = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
+      color: 'white',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
@@ -62,16 +62,19 @@ class App extends Component {
     if (this.state.showPersons) {
       persons = (
         <div>
-          {this.state.persons.map((person, index) => {
+          {
+            this.state.persons.map((person, index) => {
             return <Person
-            click = {() => this.deletePersonHandler(index)}
-            name = { person.name }
-            age = { person.age }
-            key = { person.id }
-            changed = {(event) => this.nameChangeHandler(event, person.id)}>
-          </Person>
-          })}
-          {/* <Person 
+              click = { () => this.deletePersonHandler(index) }
+              name = { person.name }
+              age = { person.age }
+              key = { person.id }
+              changed = { (event) => this.nameChangeHandler(event, person.id) }>
+            </Person>
+          })
+          }
+          {
+            /* <Person 
               name = { this.state.persons[0].name }
               age = { this.state.persons[0].age }>
             </Person>
@@ -84,41 +87,60 @@ class App extends Component {
               age = { this.state.persons[2].age } 
               click = { this.togglePersonsHandler.bind(this, 'Max') }
               changed = {this.nameChangeHandler}>
-            </Person> */}
+            </Person> */
+          }
         </div>
       );
+      style.backgroundColor = 'red';
+    }
+
+    // let classes = ['red', 'bold'].join(' ');
+    const classes = [];
+    
+    if (this.state.persons.length <= 2) {
+      classes.push('red');
+    }
+
+    if (this.state.persons.length <= 1) {
+      classes.push('bold');
     }
 
     return(
-      <div className="App">
-      <h1>I'm a React App</h1>
-      <button 
-        style= { style }
-        onClick= {this.togglePersonsHandler}>Toggle persons
-      </button>
-      {/* This is a way to render conditional 
-      {
-        this.state.showPersons === true ? 
-        <div>
-          <Person 
-              name = { this.state.persons[0].name }
-              age = { this.state.persons[0].age }>
-            </Person>
-            <Person 
-              name = { this.state.persons[1].name }
-              age = { this.state.persons[1].age }>
-            </Person>
-            <Person 
-              name = { this.state.persons[2].name }
-              age = { this.state.persons[2].age } 
-              click = { this.togglePersonsHandler.bind(this, 'Max') }
-              changed = {this.nameChangeHandler}>
-            </Person>
-        </div>
-        : null
-      } */
-        persons
-      }
+      <div className = "App">
+        <h1>I'm a React App</h1>
+        <p className = { classes.join(' ') }>
+          This is really working!
+        </p>
+        <button 
+          style = { style }
+          className = 'button'
+          onClick = { this.togglePersonsHandler }>
+          Toggle persons
+        </button>
+        {
+          /* This is a way to render conditional 
+          {
+            this.state.showPersons === true ? 
+            <div>
+              <Person 
+                  name = { this.state.persons[0].name }
+                  age = { this.state.persons[0].age }>
+                </Person>
+                <Person 
+                  name = { this.state.persons[1].name }
+                  age = { this.state.persons[1].age }>
+                </Person>
+                <Person 
+                  name = { this.state.persons[2].name }
+                  age = { this.state.persons[2].age } 
+                  click = { this.togglePersonsHandler.bind(this, 'Max') }
+                  changed = {this.nameChangeHandler}>
+                </Person>
+            </div>
+            : null
+          } */
+          persons
+        }
       </div>
     );
   }
