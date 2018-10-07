@@ -2,6 +2,8 @@
 
 # dependencies
 /node_modules
+section4-conditionals-homework/node_modules/*
+section4-conditionals-homework/node_modules/
 
 # testing
 /coverage
