@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
-import Radium from 'radium';
+import Radium, { StyleRoot } from 'radium';
 
 class App extends Component {
   state = {
     persons: [
-      { name: 'Angel', age:26, index: 1 },
-      { name: 'Lio', age:33, index: 2 },
-      { name: 'Miguel', age:26, index: 3 },
+      { name: 'Angel', age:26, index: 0 },
+      { name: 'Lio', age:33, index: 1 },
+      { name: 'Miguel', age:26, index: 2 },
     ],
     otherState: 'some other value',
     showPersons: false
@@ -31,18 +31,19 @@ class App extends Component {
   }
 
   nameChangeHandler = (event, index) => {
-    const personIndex = this.state.persons.findIndex(p => p.id === index);
+    console.log(index)
+    const personIndex = this.state.persons.findIndex(p => p.index === index);
     const person = { ...this.state.persons[personIndex] };
     person.name = event.target.value;
     const persons = [...this.state.persons];
     persons[personIndex] = person;
-    this.setState({persons});
+    this.setState({ persons });
   }
 
   deletePersonHandler = (index) => {
     const persons = [...this.state.persons];
     persons.splice(index, 1);
-    this.setState({persons});
+    this.setState({ persons });
   }
 
   render() {
@@ -56,6 +57,10 @@ class App extends Component {
       border: '1px solid blue',
       padding: '8px',
       cursor: 'pointer',
+      ':hover': {
+        backgroundColor: 'lightgreen',
+        color:'black',
+      }
     };
 
     let persons = null;
@@ -69,8 +74,8 @@ class App extends Component {
               click = { () => this.deletePersonHandler(index) }
               name = { person.name }
               age = { person.age }
-              key = { person.id }
-              changed = { (event) => this.nameChangeHandler(event, person.id) }>
+              key = { index }
+              changed = { (event) => this.nameChangeHandler(event, index) }>
             </Person>
           })
           }
@@ -93,6 +98,10 @@ class App extends Component {
         </div>
       );
       style.backgroundColor = 'red';
+      style[':hover'] = {
+        backgroundColor: 'lightyellow',
+        color:'black',
+      }
     }
 
     // let classes = ['red', 'bold'].join(' ');
@@ -107,6 +116,7 @@ class App extends Component {
     }
 
     return(
+      <StyleRoot>
       <div className = "App">
         <h1>I'm a React App</h1>
         <p className = { classes.join(' ') }>
@@ -143,8 +153,9 @@ class App extends Component {
           persons
         }
       </div>
+      </StyleRoot>
     );
   }
 }
 
-export default App;
+export default Radium(App);

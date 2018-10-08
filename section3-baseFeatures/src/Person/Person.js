@@ -1,8 +1,15 @@
 import React from 'react';
 import './Person.css';
+import Radium from 'radium';
 
 const person = (props) => {
-    return <div className = "Person">
+    const style = {
+        '@media(min-width: 500px)': {
+            width: '450px',
+        }
+    }
+    return <div className = "Person"
+    style = { style }>
         <p onClick = { props.click }>
             { props.name } - { props.age }
         </p>
@@ -14,4 +21,4 @@ const person = (props) => {
             value = { props.name }/>
     </div>
 }
-export default person;
+export default Radium(person);
