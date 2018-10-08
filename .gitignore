@@ -2,9 +2,9 @@
 
 # dependencies
 /node_modules
-section4-conditionals-homework/node_modules/*
 section4-conditionals-homework/node_modules/
-
+section3-baseFeatures/node_modules/
+section3-homework-communicate-components-with-props/node_modules/
 # testing
 /coverage
 
