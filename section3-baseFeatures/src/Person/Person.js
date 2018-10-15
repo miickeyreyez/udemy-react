@@ -2,7 +2,12 @@ import React from 'react';
 import classes from './Person.css';
 
 const person = (props) => {
-    return <div className = { classes.Person }>
+    // const rnd = Math.random();
+    // if (rnd > 0.7) {
+    //     throw new Error('Something went wrong');
+    // }
+    return (
+    <div className = { classes.Person }>
         <p onClick = { props.click }>
             { props.name } - { props.age }
         </p>
@@ -12,6 +17,6 @@ const person = (props) => {
         <input type = "text"
             onChange = { props.changed }
             value = { props.name }/>
-    </div>
+    </div>)
 }
 export default person;
