@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classes from './App.css';
-import Person from './Person/Person';
-import ErrorBoundary from './Error Boundary/ErrorBoundary';
+import Person from '../components/Persons/Person';
+import ErrorBoundary from '../ErrorBoundary';
 
 class App extends Component {
   state = {
