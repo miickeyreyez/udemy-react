@@ -4,14 +4,36 @@ import Persons from '../components/Persons';
 import Cockpit from '../components/Cockpit';
 
 class App extends Component {
-  state = {
-    persons: [
-      { name: 'Angel', age:26, index: 0 },
-      { name: 'Lio', age:33, index: 1 },
-      { name: 'Miguel', age:26, index: 2 },
-    ],
-    otherState: 'some other value',
-    showPersons: false
+  constructor(props) {
+    super(props);
+    console.log('App constructor', JSON.stringify(props));
+    this.state = {
+      persons: [
+        { name: 'Angel', age:26, index: 0 },
+        { name: 'Lio', age:33, index: 1 },
+        { name: 'Miguel', age:26, index: 2 },
+      ],
+      otherState: 'some other value',
+      showPersons: false
+    }
+  }
+
+  componentWillMount() {
+    console.log('App - Will mount');
+  }
+
+  // state = {
+  //   persons: [
+  //     { name: 'Angel', age:26, index: 0 },
+  //     { name: 'Lio', age:33, index: 1 },
+  //     { name: 'Miguel', age:26, index: 2 },
+  //   ],
+  //   otherState: 'some other value',
+  //   showPersons: false
+  // }
+
+  componentDidMount() {
+    console.log('App - Did mount');
   }
 
   togglePersonsHandler = () => {
@@ -35,6 +57,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('App - Render');
     let persons = null;
 
     if (this.state.showPersons) {
