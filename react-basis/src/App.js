@@ -114,13 +114,35 @@ nameChangeHandler = (event) => {
           onClick={this.switchNameHandler.bind(this, 'Lionel')}>
           Switch name
         </button>
+
+        <button
+          style={style}
+          onClick={this.togglePersonsHandler}>
+          Show persons
+        </button>
         
-        <Person
-          name={this.state.persons[0].name}
-          age={this.state.persons[0].age}
-          click={() => this.switchNameHandler('Leo')}
-          change={this.nameChangeHandler}
-        />
+        <div>
+          <Person
+            name={this.state.persons[0].name}
+            age={this.state.persons[0].age}
+            click={() => this.switchNameHandler('Leo')}
+            change={this.nameChangeHandler}
+          />
+
+          <Person
+            name={this.state.persons[1].name}
+            age={this.state.persons[1].age}
+            click={() => this.switchNameHandler('Leo')}
+            change={this.nameChangeHandler}
+          />
+
+          <Person
+            name={this.state.persons[1].name}
+            age={this.state.persons[1].age}
+            click={() => this.switchNameHandler('Leo')}
+            change={this.nameChangeHandler}
+          />
+        </div>
         
         <UserInput change={this.droidsNameHandler} currentName={this.state.droids[0].name} />
 
