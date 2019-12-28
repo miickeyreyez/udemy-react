@@ -8,6 +8,7 @@ import UserInput from './components/UserInput';
 import UserOutput from './components/UserOutput';
 import Validation from './components/Validation';
 import Char from './components/Char';
+import ErrorBoundary from './components/ErrorBoundary';
 
 // Example with hooks to manipulate state
 // const app = props => {
@@ -177,16 +178,17 @@ class App extends Component {
       persons = (
         <div>
           {this.state.persons.map((person, index) => (
-            <Person
-              key={person.id}
-              id={person.id}
-              name={person.name}
-              age={person.age}
-              click={() => this.deletePersonsHandler(index)}
-              // Binding with anonymous function
-              // click={() => this.switchNameHandler('Leo')}
-              change={event => this.nameChangeHandler(event, person.id)}
-            />
+            <ErrorBoundary key={person.id}>
+              <Person
+                id={person.id}
+                name={person.name}
+                age={person.age}
+                click={() => this.deletePersonsHandler(index)}
+                // Binding with anonymous function
+                // click={() => this.switchNameHandler('Leo')}
+                change={event => this.nameChangeHandler(event, person.id)}
+              />
+            </ErrorBoundary>
           ))}
         </div>
       );
