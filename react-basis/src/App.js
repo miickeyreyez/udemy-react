@@ -69,6 +69,11 @@ const StyledButton = styled.button`
   },
 `;
 class App extends Component {
+  constructor(props) {
+    super(props);
+    console.log('App.js constructor');
+  }
+
   state = {
     persons: [
       { id: 1, name: 'Lio', age: 28 },
@@ -79,6 +84,19 @@ class App extends Component {
     toggle: true,
     userInput: ''
   };
+  
+  static getDerivedStateFromProps(props, state) {
+    console.log('App.js getDerivedStateFromProps', props);
+    return state;
+  }
+  
+  componentWillMount() {
+    console.log('App.js componentWillMount');
+  }
+
+  componentDidMount() {
+    console.log('App.js componentDidMount');
+  }
 
   droidsNameHandler = event => {
     const { value } = event.target;
@@ -148,6 +166,7 @@ class App extends Component {
   };
 
   render() {
+    console.log('App.js render');
     const style = {
       backgroundColor: 'green',
       color: 'white',
