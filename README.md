@@ -1,23 +1,23 @@
-# Create-react-app
+### Create-react-app
 npm install -g create-react-app
 create-react-app my-app --scripts-version 1.1.5
 my-app/ npm start
 
-# --scripts-version
+### --scripts-version
 These scripts impact in the folder structure
 
-# props
+### props
 Pass data from a parent to a child. Wrapping => embedded
 
-# state
+### state
 Pass data down the component tree
 
-# Functional components
+### Functional components
 ```
 const funcComponent  = () => <div> Hello world! </div>
 ```
 
-# Class components
+### Class components
 ```
 class ClassComponent {
 	render {
@@ -26,20 +26,20 @@ class ClassComponent {
 }
 ```
 
-# State components
+### State components
 Handle state
 
-# Stateless components
+### Stateless components
 Does not handle state (presentational components)
 
-# Pure components
+### Pure components
 Use automatically shouldComponentUpdate()
 
-# HOC
+### HOC
 Extended functionallity component
 Works as a wrapper (props.children)
 
-# useState hook
+### useState hook
 Adds functionallity to func components
 This hooks replaces state instead of merging
 You cand handle multiple states, and updated by properties
@@ -56,7 +56,7 @@ const personHandler = () => setPersomState({ persons: [{ name: 'Miguel' }] })
 <button onClick={personHandler} />
 ```
 
-# Binding information 
+### Binding information 
 ```
 // Reference
 onClick={this.handleClick}
@@ -68,7 +68,7 @@ onClick={this.handleClick.bind(this, value to pass)}
 onClick={() => this.handleClick.bind(value to pass)}
 ```
 
-# Styles with stylesheets (CSS file)
+### Styles with stylesheets (CSS file)
 This features is possible by Webpack which adds the style to the components
 ```
 import './Styles.css';
@@ -76,21 +76,21 @@ import './Styles.css';
 <div className="Person">
 ```
 
-# Inline styles
+### Inline styles
 ```
 const style = {};
 ...
 <button style={style}>
 ```
 
-# Style components
+### Style components
 Note: Style components must be installed
 ```
 const StyledButton = styled.button``
 ...
 <StyledButton />
 ```
-# CSS modules
+### CSS modules
 In webpack is config by the 'css-loader'
 ```
 options: {
@@ -106,7 +106,7 @@ import classes from 'Styles.modules.css';
 <button className={classes.Button}>
 ```
 
-# PropTypes
+### PropTypes
 Check properties integrity
 ```
 import PropTypes from 'prop-types';
@@ -122,10 +122,4 @@ Person.propTypes = {
 export default Person;
 ```
 
-# Creating Burguer Builder
-```
-create-react-app react-burger --scripts-version 1.0.13
-npm run eject (if necessary modify webpack config)
-npm install react-scripts-cssmodules
--- Adds modules.css to the css files
-
+### 1. react-burger: React application
