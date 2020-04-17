@@ -1,12 +1,11 @@
 import React from 'react';
 import NavigationItem from './NavigationItem';
-import classes from './NavigationItems.module.css';
+import { NavigationItems } from './NavigationItems.module.css';
 
-const navigationItems = (props) => (
-  <ul className={classes.NavigationItems}>
+const navigationItems = () => (
+  <ul className={NavigationItems}>
     <NavigationItem link="" active>Burger Builder</NavigationItem>
     <NavigationItem link="">Checkout</NavigationItem>
-    {/* {props.items.map((item) => <NavigationItem />)} */}
   </ul>
 );
 

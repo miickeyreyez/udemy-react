@@ -17,7 +17,7 @@ class OrderSummary extends Component {
 							.map((key) => (
 							<li key={key}>
 								<span style={{ textTransform: 'capitalize' }}>{key}</span>
-								{`: ${ingredients[key]}`}
+								{ `: ${ingredients[key]}` }
 							</li>
 							)
 						)
@@ -25,8 +25,8 @@ class OrderSummary extends Component {
 				</ul>
 				<p><strong>Total Price:</strong> ${totalPrice.toFixed(2)}</p>
 				<p>Continue to checkout?</p>
-				<Button clicked={cancel} btnType={'Danger'}>CANCEL</Button>
-				<Button clicked={purchased} btnType={'Success'}>CONTINUE</Button>
+				<Button click={cancel} btnType={'Danger'}>CANCEL</Button>
+				<Button click={purchased} btnType={'Success'}>CONTINUE</Button>
 			</Aux>
 		);
 	}	

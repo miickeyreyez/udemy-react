@@ -1,27 +1,32 @@
 import React from 'react';
 import { CONTROLS } from '../../../Constants';
 import BuildControl from '../BuildControl';
-import classes from './BuildControls.module.css';
+import { BuildControls, OrderButton } from './BuildControls.module.css';
 
-const buildControls = (props) =>
+const buildControls = ({ disabled, ingredientToAdd, ingredientToRemove, price, purchase, purchasable }) =>
   (
-    <div className={classes.BuildControls} >
-      <p>Current price: <strong>${props.price.toFixed(2)}</strong></p>
+    <div className={BuildControls} >
+      <p>
+				Current price: 
+				<strong>
+					${price.toFixed(2)}
+				</strong>
+			</p>
       {
-        CONTROLS.map((control) => (
+        CONTROLS.map(({ label, type }) => (
           <BuildControl
-            key={control.label}
-            label={control.label}
-            added={() => props.ingredientAdded(control.type)}
-            removed={() => props.ingredientRemoved(control.type)}
-            disabled={props.disabled[control.type]}
+            key={label}
+            label={label}
+            add={() => ingredientToAdd(type)}
+            remove={() => ingredientToRemove(type)}
+            disabled={disabled[type]}
           />
         ))
       }
       <button
-        className={classes.OrderButton}
-        disabled={!props.purchasable}
-        onClick={props.ordered}>
+        className={OrderButton}
+        disabled={!purchasable}
+        onClick={purchase}>
           ORDER NOW
       </button>
     </div>

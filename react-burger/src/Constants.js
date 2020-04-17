@@ -1,29 +1,29 @@
-const BreadBottom = 'BreadBottom';
-const Meat = 'Meat';
-const Cheese = 'Cheese';
 const Bacon = 'Bacon';
+const BreadBottom = 'BreadBottom';
+const Cheese = 'Cheese';
+const Meat = 'Meat';
 const Salad = 'Salad';
 
 const INGREDIENTS = {
   'bread-bottom': BreadBottom,
-  Meat,
-  Cheese,
   Bacon,
+	Cheese,
+	Meat,
   Salad,
 };
 
 const INGREDIENTS_PRICE = {
-  Salad: 0.5,
-  Cheese: 0.4,
-  Meat: 1.3,
   Bacon: 0.7,
+  Cheese: 0.4,
+	Meat: 1.3,
+	Salad: 0.5,
 };
 
 const CONTROLS = [
-  { label: Salad, type: Salad },
   { label: Bacon, type: Bacon },
   { label: Cheese, type: Cheese },
-  { label: Meat, type: Meat },
+	{ label: Meat, type: Meat },
+	{ label: Salad, type: Salad },
 ];
 
 export {

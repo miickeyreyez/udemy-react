@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import { INGREDIENTS } from '../../../Constants';
-import classes from './BurgerIngredients.module.css';
+import classes, { BreadTop, Seeds1, Seeds2 } from './BurgerIngredient.module.css';
 
 class BurgerIngredient extends Component {
   render () {
@@ -11,9 +10,9 @@ class BurgerIngredient extends Component {
 
     if (type === top) {
       return (
-        <div className={classes.BreadTop}>
-          <div className={classes.Seeds1} />
-          <div className={classes.Seeds2} />
+        <div className={BreadTop}>
+          <div className={Seeds1} />
+          <div className={Seeds2} />
         </div>
       );
     }
@@ -26,7 +25,7 @@ class BurgerIngredient extends Component {
   }
 }
 
-BurgerIngredient.PropTypes = {
+BurgerIngredient.propTypes = {
   type: PropTypes.string.isRequired,
 };
 
