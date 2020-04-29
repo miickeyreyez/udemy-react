@@ -5,11 +5,11 @@ import classes from './Modal.module.css';
 
 class Modal extends Component {
 	showComponentUpdate(nextProps, nextState) {
-		return nextProps.show !== this.props.show;
+		return nextProps.show !== this.props.show || nextProps.children !== this.props.children;
 	}
 
 	render () {
-		const { show, modalClosed, children } = this.props;
+    const { show, modalClosed, children } = this.props;
 
 		return (
 			<Aux>
