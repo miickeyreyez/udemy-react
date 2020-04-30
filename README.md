@@ -122,4 +122,53 @@ Person.propTypes = {
 export default Person;
 ```
 
+### Router
+```
+react-router
+react-router-dom
+
+...
+
+App.js
+
+import { BrowserRouter } from 'react-router-dom';
+
+<BrowserRouter basename=''>
+  <App />
+</BrowserRouter>
+
+...
+
+Component.js
+
+import { Route, Link, NavLink } from 'react-router-dom';
+
+<Route path='/' exact render={() => <div>Hello world!</div>}>
+<Route path='/' exact component={MyComponent}>
+
+<Link to='/'>Home</Link>
+<NavLink activeClass='active' activeStyle={{}} to='/'>Home</Link>
+<Link to={{
+  pathname: '/new-post',
+  hash: '#submit,
+  search: '?quick-submit=true',
+}}>
+  Posts
+</Link>
+
+<Switch> // To only use one router
+<Redirect from='a' to='b'> // Redirect user actions
+
+...
+
+-- This will be usufel to get Router props (or copy parent props with spread operator)
+
+Post.js
+
+import { withRouter } from 'react-router-dom';
+
+export default withRouter(Post);
+
+```
+
 ### 1. react-burger: React application
