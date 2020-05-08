@@ -1,7 +1,9 @@
 ### Create-react-app
+```
 npm install -g create-react-app
 create-react-app my-app --scripts-version 1.1.5
 my-app/ npm start
+```
 
 ### --scripts-version
 These scripts impact in the folder structure
@@ -168,6 +170,130 @@ Post.js
 import { withRouter } from 'react-router-dom';
 
 export default withRouter(Post);
+
+```
+
+### Redux
+Store app state
+```
+redux
+
+....
+
+redux-basics.js
+
+const redux = require('redux');
+const createStore = redux.createStore;
+
+const initialState = {}
+
+// Reducer
+const rootReducer = (state = initialState, action) => {
+  if (action.type === 'INC_COUNTER') {
+    return {
+      ...state,
+      counter: state.counter + 1,
+    };
+  }
+
+  if (action.type === 'ADD_COUNTER') {
+    return {
+      ...state,
+      counter: state.counter + action.value,
+    };
+  }
+  return state;
+}
+
+// Store
+const store = createStore(rootReducer);
+// To check the store: store.getState();
+
+// Subscription
+store.subscribe(() => {
+  console.log('[Subscription'], store.getState());
+});
+
+// Dispatching Action
+store.dispatch({ type: 'ADD_COUNTER', value: 10 });
+store.dispatch({ type: 'INC_COUNTER', payload: {} });
+
+```
+
+Setting up redux in an application
+
+```
+redux
+react-redux
+
+...
+
+App.js
+
+import { createStore, combineReducer } from 'redux';
+import { Provider } from 'react-redux';
+import { ctr, res } from './store/reducer';
+
+onst rootReducer = combineReducers({
+  ctr,
+  res,
+});
+
+const store = createStore(rootReducer);
+
+const app = (
+  <Provider store={store}>
+    <App />
+  </Provider>
+)
+
+React.render(app, ...);
+
+...
+
+store/reducer.js
+
+const initialState = {};
+
+const reducer = (state, action) => {
+  if(action.type === 'INCREMENT') {
+    return {
+      ...state,
+      counter: state.counter + action.result,
+    }
+  }
+  return state;
+}
+
+export default reducer;
+
+...
+
+Counter.js
+
+import { connect } from 'react-redux';
+
+...
+
+class Counter extends Component {
+  ...
+  <button onClick={() => this.props.onIncrementCounter(this.props.ctr)} />
+  ...
+}
+
+const mapStateToProps = state => {
+  return {
+    ctr: state.ctr.counter,
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onIncrementCounter: (result) => dispatch({ type: 'INCREMENT' result }),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);
 
 ```
 
