@@ -297,4 +297,79 @@ export default connect(mapStateToProps, mapDispatchToProps)(Counter);
 
 ```
 
+### Redux Advanced
+Middleware
+
+```
+index.js
+
+import { applyMiddleware } from 'react-redux';
+
+...
+
+const logger = store => {
+  return next => {
+    return action => {
+      console.log('[Middleware] Dispatching', action);
+      cont result = next(action);
+      console.log('[Middleware] nrex state', store.getState());
+      return result;
+    }
+  }
+}
+
+...
+
+const store = createStore(rootReducer, applyMiddleware(logger));
+
+```
+
+Redux-thunk
+
+```
+redux-thunk
+
+...
+
+index.js
+
+import thunk from 'react-thunk';
+
+...
+
+const store = createStore(rootReducer, applyMiddleware(thunk));
+
+...
+
+actions.js
+
+...
+
+return function(val) {
+  setTimeout(() => {
+    dispatch({ action" 'SOME_ACTION', val })
+  }, 2000);
+}
+
+```
+
+Action creators
+
+```
+actions.js
+
+...
+
+export const storeResult =  (res) => {
+  return (dispatch, getState) => {
+    setTimeout(() => {
+      const oldCounter = getState().counter;
+      dispatch(saveResult(++oldCounter))
+    });
+  }
+}
+
+```
+
+
 ### 1. react-burger: React application
