@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 import ContactData from './ContactData';
 import CheckoutSummary from '../../Order/CheckoutSummary';
 
@@ -33,32 +33,41 @@ class Checkout extends Component {
   continueCheckoutHandler = () => this.props.history.replace('/checkout/contact-data');
 
   render () {
-    const { ingredients } = this.props;
-    return (
-      <div>
-        <CheckoutSummary
-          cancelCheckout={this.cancelCheckoutHandler}
-          continueCheckout={this.continueCheckoutHandler}
-          ingredients={ingredients} />
-        <Route
-          path={`${this.props.match.path}/contact-data`}
-          render={(props) =>(
-            <ContactData
-              // ingredients={ingredients}
-              // totalPrice={totalPrice}
-              {...props}
-            />
-          )}
-        />
-      </div>
-    )
+    const { ingredients, purchased } = this.props;
+    let summary = <Redirect to='/' />
+
+    if (ingredients) {
+      const purchasedRedirect = purchased && <Redirect to='/' />;
+      summary = (
+        <div>
+          { purchasedRedirect }
+          <CheckoutSummary
+            cancelCheckout={this.cancelCheckoutHandler}
+            continueCheckout={this.continueCheckoutHandler}
+            ingredients={ingredients} />
+          <Route
+            path={`${this.props.match.path}/contact-data`}
+            render={(props) =>(
+              <ContactData
+                // ingredients={ingredients}
+                // totalPrice={totalPrice}
+                {...props}
+              />
+            )}
+          />
+        </div>
+      );
+    }
+
+    return summary;
   }
 }
 
 const mapStateToProps = state => {
   return {
-    ingredients: state.ingredients,
-  }
+    ingredients: state.burgerBuilder.ingredients,
+    purchased: state.order.purchased,
+  };
 }
 
 export default connect(mapStateToProps)(Checkout);
