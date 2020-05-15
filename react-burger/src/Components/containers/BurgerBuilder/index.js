@@ -8,8 +8,8 @@ import Spinner from '../../UI/Spinner';
 import ErrorHandler from '../../hoc/ErrorHandler';
 import BuildControls from '../../Burger/BuildControls';
 import OrderSummary from '../../Burger/OrderSummary';
-import axios from '../../axios-orders';
-import * as actionTypes from '../../../store/actions';
+import axios from '../../../axios-orders';
+import { addIngredient, fetchIngredients, removeIngredient, purchaseInit } from '../../../store/actions';
 
 class BurgerBuilder extends Component {
   state = {
@@ -18,7 +18,7 @@ class BurgerBuilder extends Component {
     // purchasable: false,
     purchasing: false,
     loading: false,
-    error: false,
+    // error: false,
   };
   
   componentDidMount () {
@@ -28,6 +28,7 @@ class BurgerBuilder extends Component {
     //     this.isPurchasable(this.props.ingredients);
     //   })
     //   .catch((error) => this.setState({ error: true }));
+    this.props.onFetchIngredients();
   }
   
   isPurchasable(ingredients) {
@@ -80,6 +81,7 @@ class BurgerBuilder extends Component {
   purchaseCancelHandler = () => this.setState({ purchasing: false });
   
   purchaseContinueHandler = () => {
+    this.props.onPurchaseInit();
     this.props.history.push('/checkout');
     // const queryParams = [];
 
@@ -99,8 +101,8 @@ class BurgerBuilder extends Component {
 	};
   
   render() {
-    const { error, purchasing } = this.state;
-    const { ingredients, onIngredientAdded, onIngredientRemoved, totalPrice } = this.props;
+    const { purchasing } = this.state;
+    const { error, ingredients, onIngredientAdded, onIngredientRemoved, totalPrice } = this.props;
     const disabledInfo = {
       ...ingredients,
     };
@@ -152,19 +154,18 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = state => {
   return {
-    ingredients: state.ingredients,
-    totalPrice: state.totalPrice,
+    error: state.burgerBuilder.error,
+    ingredients: state.burgerBuilder.ingredients,
+    totalPrice: state.burgerBuilder.totalPrice,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onIngredientAdded: (ingredientName) => dispatch({
-      type: actionTypes.ADD_INGREDIENT, ingredientName,
-    }),
-    onIngredientRemoved: (ingredientName) => dispatch({
-      type: actionTypes.REMOVE_INGREDIENT, ingredientName,
-    }),
+    onFetchIngredients: () => dispatch(fetchIngredients()),
+    onIngredientAdded: (ingredientName) => dispatch(addIngredient(ingredientName)),
+    onIngredientRemoved: (ingredientName) => dispatch(removeIngredient(ingredientName)),
+    onPurchaseInit: () => dispatch(purchaseInit()),
   };
 };
 
