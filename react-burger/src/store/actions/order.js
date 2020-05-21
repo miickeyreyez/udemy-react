@@ -16,10 +16,11 @@ export const purchaseBurgerStart = () => ({
   type: actionTypes.PURCHASE_BURGER_START,
 });
 
-export const purchaseBurger = (orderData) => dispatch => {
+export const purchaseBurger = (idToken, orderData) => dispatch => {
+  console.log('2', idToken);
   dispatch(purchaseBurgerStart());
   axios
-		.post(process.env.REACT_APP_ORDERS_URL, orderData)
+		.post(`${process.env.REACT_APP_ORDERS_URL}?auth=${idToken}`, orderData)
 		.then((response) => {
       dispatch(purchaseBurgerSuccess(response.data.name, orderData));
     })
@@ -44,9 +45,9 @@ export const fetchOrdersStart = () => ({
   type: actionTypes.FETCH_ORDERS_START,
 });
 
-export const fetchOrders = () => dispatch => {
+export const fetchOrders = (idToken) => dispatch => {
   dispatch(fetchOrdersStart());
-  axios.get(process.env.REACT_APP_ORDERS_URL)
+  axios.get(`${process.env.REACT_APP_ORDERS_URL}?auth=${idToken}`)
     .then(({ data }) => {
       const fetchedOrders = [];
       const objectArray = Object.entries(data);

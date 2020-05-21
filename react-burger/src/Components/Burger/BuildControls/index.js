@@ -3,7 +3,15 @@ import { CONTROLS } from '../../../Constants';
 import BuildControl from '../BuildControl';
 import { BuildControls, OrderButton } from './BuildControls.module.css';
 
-const buildControls = ({ disabled, ingredientToAdd, ingredientToRemove, price, purchase, purchasable }) =>
+const buildControls = ({
+  disabled,
+  ingredientToAdd,
+  ingredientToRemove,
+  isAuthenticated,
+  price,
+  purchase,
+  purchasable,
+ }) =>
   (
     <div className={BuildControls} >
       <p>
@@ -27,7 +35,12 @@ const buildControls = ({ disabled, ingredientToAdd, ingredientToRemove, price, p
         className={OrderButton}
         disabled={!purchasable}
         onClick={purchase}>
-          ORDER NOW
+          {
+            isAuthenticated ?
+            'ORDER NOW' :
+            'SIGN IN TO START ORDERING'
+          }
+          
       </button>
     </div>
   );

@@ -6,12 +6,14 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
-import burgerBuilderReducer from './store/reducers/burgerBuilder';
+import authReducer from './store/reducers/auth';
 import orderReducer from './store/reducers/order';
+import burgerBuilderReducer from './store/reducers/burgerBuilder';
 import * as serviceWorker from './serviceWorker';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const rootReducer = combineReducers({
+  auth: authReducer,
   burgerBuilder: burgerBuilderReducer,
   order: orderReducer,
 });

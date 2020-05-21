@@ -22,6 +22,7 @@ class BurgerBuilder extends Component {
   };
   
   componentDidMount () {
+    console.log(this.props);
     // axios.get(process.env.REACT_APP_INGREDIENTS_URL)
     //   .then(response => {
     //     this.setState({ ingredients: response.data });
@@ -76,7 +77,13 @@ class BurgerBuilder extends Component {
   //   this.isPurchasable(updatedIngredients);
   // };
   
-  purchaseHandler = () => this.setState({ purchasing: true });
+  purchaseHandler = () => {
+    if (this.props.isAuthenticated) {
+      this.setState({ purchasing: true });
+    } else {
+      this.props.history.push('/auth');
+    }
+  }
   
   purchaseCancelHandler = () => this.setState({ purchasing: false });
   
@@ -102,7 +109,14 @@ class BurgerBuilder extends Component {
   
   render() {
     const { purchasing } = this.state;
-    const { error, ingredients, onIngredientAdded, onIngredientRemoved, totalPrice } = this.props;
+    const {
+      error,
+      ingredients,
+      isAuthenticated,
+      onIngredientAdded,
+      onIngredientRemoved,
+      totalPrice,
+    } = this.props;
     const disabledInfo = {
       ...ingredients,
     };
@@ -118,8 +132,9 @@ class BurgerBuilder extends Component {
       burger = (
         <Aux>
           <Burger ingredients={ingredients} />
-
+ 
           <BuildControls
+            isAuthenticated={isAuthenticated}
             ingredientToAdd={onIngredientAdded}
             ingredientToRemove={onIngredientRemoved}
             disabled={disabledInfo}
@@ -127,6 +142,7 @@ class BurgerBuilder extends Component {
             purchasable={this.isPurchasable(ingredients)}
             purchase={this.purchaseHandler}
           />
+          }
         </Aux>
       );
 
@@ -154,6 +170,7 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = state => {
   return {
+    isAuthenticated: !!state.auth.idToken,
     error: state.burgerBuilder.error,
     ingredients: state.burgerBuilder.ingredients,
     totalPrice: state.burgerBuilder.totalPrice,
