@@ -1,9 +1,3 @@
-@media (min-width: 600px) {
-  .CheckoutSummary {
-    width: 500px;
-  }
-}
-
 .CheckoutSummary {
   margin: auto;
   text-align: center;

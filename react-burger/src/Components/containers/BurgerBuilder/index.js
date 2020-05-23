@@ -133,7 +133,7 @@ class BurgerBuilder extends Component {
       burger = (
         <Aux>
           <Burger ingredients={ingredients} />
- 
+
           <BuildControls
             isAuthenticated={isAuthenticated}
             ingredientToAdd={onIngredientAdded}
