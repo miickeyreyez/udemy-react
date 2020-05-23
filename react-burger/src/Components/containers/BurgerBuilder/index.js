@@ -9,7 +9,7 @@ import ErrorHandler from '../../hoc/ErrorHandler';
 import BuildControls from '../../Burger/BuildControls';
 import OrderSummary from '../../Burger/OrderSummary';
 import axios from '../../../axios-orders';
-import { addIngredient, fetchIngredients, removeIngredient, purchaseInit } from '../../../store/actions';
+import { addIngredient, fetchIngredients, removeIngredient, purchaseInit, setAuthRedirectPath } from '../../../store/actions';
 
 class BurgerBuilder extends Component {
   state = {
@@ -76,7 +76,15 @@ class BurgerBuilder extends Component {
   //   this.isPurchasable(updatedIngredients);
   // };
   
-  purchaseHandler = () => this.setState({ purchasing: true });
+  purchaseHandler = () => {
+    const { isAuthenticated, onSetAuthRedirectPath } = this.props;
+    if (isAuthenticated) {
+      this.setState({ purchasing: true });
+    } else {
+      onSetAuthRedirectPath('/checkout');
+      this.props.history.push('/auth');
+    }
+  }
   
   purchaseCancelHandler = () => this.setState({ purchasing: false });
   
@@ -102,7 +110,14 @@ class BurgerBuilder extends Component {
   
   render() {
     const { purchasing } = this.state;
-    const { error, ingredients, onIngredientAdded, onIngredientRemoved, totalPrice } = this.props;
+    const {
+      error,
+      ingredients,
+      isAuthenticated,
+      onIngredientAdded,
+      onIngredientRemoved,
+      totalPrice,
+    } = this.props;
     const disabledInfo = {
       ...ingredients,
     };
@@ -118,8 +133,9 @@ class BurgerBuilder extends Component {
       burger = (
         <Aux>
           <Burger ingredients={ingredients} />
-
+ 
           <BuildControls
+            isAuthenticated={isAuthenticated}
             ingredientToAdd={onIngredientAdded}
             ingredientToRemove={onIngredientRemoved}
             disabled={disabledInfo}
@@ -127,6 +143,7 @@ class BurgerBuilder extends Component {
             purchasable={this.isPurchasable(ingredients)}
             purchase={this.purchaseHandler}
           />
+          }
         </Aux>
       );
 
@@ -154,6 +171,7 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = state => {
   return {
+    isAuthenticated: !!state.auth.idToken,
     error: state.burgerBuilder.error,
     ingredients: state.burgerBuilder.ingredients,
     totalPrice: state.burgerBuilder.totalPrice,
@@ -166,6 +184,7 @@ const mapDispatchToProps = dispatch => {
     onIngredientAdded: (ingredientName) => dispatch(addIngredient(ingredientName)),
     onIngredientRemoved: (ingredientName) => dispatch(removeIngredient(ingredientName)),
     onPurchaseInit: () => dispatch(purchaseInit()),
+    onSetAuthRedirectPath: (path) => dispatch(setAuthRedirectPath(path)),
   };
 };
 

@@ -13,7 +13,8 @@ class Orders extends Component {
   // }
 
   componentDidMount () {
-    this.props.onFetchOrders();
+    const { idToken, userId } = this.props;
+    this.props.onFetchOrders(idToken, userId);
     // axios.get(process.env.REACT_APP_ORDERS_URL)
     //   .then(({ data }) => {
     //     const fetchedOrders = [];
@@ -51,12 +52,14 @@ class Orders extends Component {
 }
 
 const mapStateToProps = state => ({
+  idToken: state.auth.idToken,
+  userId: state.auth.userId,
   orders: state.order.orders,
   loading: state.order.loading,
 });
 
 const mapDispatchToProps = dispatch => ({
-  onFetchOrders: () => dispatch(fetchOrders()),
+  onFetchOrders: (idToken, userId) => dispatch(fetchOrders(idToken, userId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ErrorHandler(Orders, axios));

@@ -96,11 +96,21 @@ class ContactData extends Component {
   };
 
   checkValidity (value, rules) {
-    const { required, minLength, maxLength } = rules;
+    const { email, minLength, maxLength, numeric, required } = rules;
     let isValid = true;
 
     if (!rules) {
       return true;
+    }
+
+    if (email) {
+      const pattern = '/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/';
+      isValid = pattern.test(value) && isValid;
+    }
+
+    if (numeric) {
+      const pattern = '^[0-9]+$';
+      isValid = pattern.test(value) && isValid;
     }
 
     if (required) {
@@ -136,7 +146,7 @@ class ContactData extends Component {
   orderHandler = (event) => {
     const formData = {};
     const { orderForm } = this.state; 
-    const { ingredients, onOrderBurger, totalPrice } = this.props;
+    const { ingredients, idToken, onOrderBurger, totalPrice, userId } = this.props;
 
     event.preventDefault();
 
@@ -150,9 +160,10 @@ class ContactData extends Component {
 			ingredients,
       totalPrice,
       orderData: formData,
+      userId,
     };
     
-    onOrderBurger(order);
+    onOrderBurger(idToken, order);
 
 		// axios
 		// 	.post('/orders.json', order)
@@ -206,6 +217,8 @@ class ContactData extends Component {
 
 const mapStateToProps = state => {
   return {
+    idToken: state.auth.idToken,
+    userId: state.auth.userId,
     ingredients: state.burgerBuilder.ingredients,
     totalPrice: state.burgerBuilder.totalPrice,
     loading: state.order.loading,
@@ -214,7 +227,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onOrderBurger: (orderData) => dispatch(purchaseBurger(orderData)),
+    onOrderBurger: (idToken, orderData) => dispatch(purchaseBurger(idToken, orderData)),
   }
 }
 
