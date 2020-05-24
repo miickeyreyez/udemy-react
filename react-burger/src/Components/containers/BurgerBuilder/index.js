@@ -11,7 +11,7 @@ import OrderSummary from '../../Burger/OrderSummary';
 import axios from '../../../axios-orders';
 import { addIngredient, fetchIngredients, removeIngredient, purchaseInit, setAuthRedirectPath } from '../../../store/actions';
 
-class BurgerBuilder extends Component {
+export class BurgerBuilder extends Component {
   state = {
     // ingredients: null,
     // totalPrice: 4,
