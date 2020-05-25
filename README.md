@@ -371,5 +371,31 @@ export const storeResult =  (res) => {
 
 ```
 
+### Tests
+
+```
+jest - Test runner which executes tests and provides validation library
+enzyme - Testing utilities which simultas the react app, allow dig into the DOM
+```
+
+### Deployment
+
+```
+Basepath => <BrowserRouter basename='/my-app' />
+Build & optimize project => npm run build
+Always serve index.html => ensures router works correctly
+Upoload build artifacts to server => build folder
+```
+
+## Webpack
+
+```
+Bundle that analyzes connections and bundles to optimize everything
+Multiple entry points => entry
+File type transformation => Loaders
+Global transformation => Plugins
+Correctly concatenated and ordered output => output
+```
 
 ### 1. react-burger: React application
+### 2. next-app: Demo Next.js
