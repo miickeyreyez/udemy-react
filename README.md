@@ -397,5 +397,11 @@ Global transformation => Plugins
 Correctly concatenated and ordered output => output
 ```
 
+## Redux saga
+```
+npm install --save redux-saga
+```
+
 ### 1. react-burger: React application
 ### 2. next-app: Demo Next.js
+### 3. animations
