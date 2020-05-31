@@ -402,12 +402,8 @@ Correctly concatenated and ordered output => output
 npm install --save redux-saga
 ```
 
-### Hooks
-```
-
-```
-
 ### 1. react-burger: React application
 ### 2. next-app: Demo Next.js
 ### 3. animations
 ### 4. hooks
+### 5. context
